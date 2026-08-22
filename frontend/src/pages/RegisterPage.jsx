@@ -1,19 +1,29 @@
-import React, { useState } from 'react';
-import { useNavigate, Link } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { useNavigate, Link, useSearchParams } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import { UserPlus, MapPin, AlertCircle, CheckCircle } from 'lucide-react';
 
 export const RegisterPage = () => {
+  const [searchParams] = useSearchParams();
+  const initialRole = searchParams.get('role')?.toUpperCase();
+  const validRole = ['DONOR', 'NGO', 'VOLUNTEER'].includes(initialRole) ? initialRole : 'DONOR';
+
   const [formData, setFormData] = useState({
     name: '',
     email: '',
     password: '',
     phone: '',
-    role: 'DONOR',
+    role: validRole,
     address: '',
     latitude: 19.0760, // Default Mumbai coordinates
     longitude: 72.8777
   });
+
+  useEffect(() => {
+    if (initialRole && ['DONOR', 'NGO', 'VOLUNTEER'].includes(initialRole)) {
+      setFormData(prev => ({ ...prev, role: initialRole }));
+    }
+  }, [initialRole]);
 
   const [error, setError] = useState('');
   const [locationStatus, setLocationStatus] = useState('');
