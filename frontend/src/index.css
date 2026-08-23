@@ -1,14 +1,14 @@
-@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap');
 
 :root {
   --font-heading: 'Outfit', sans-serif;
   --font-body: 'Plus Jakarta Sans', sans-serif;
 
-  --bg-dark: #0f172a;
-  --bg-card: rgba(30, 41, 59, 0.7);
-  --bg-card-hover: rgba(51, 65, 85, 0.8);
-  --border-color: rgba(255, 255, 255, 0.1);
-  --border-glow: rgba(34, 197, 94, 0.3);
+  --bg-dark: #090d16;
+  --bg-card: rgba(15, 23, 42, 0.75);
+  --bg-card-hover: rgba(30, 41, 59, 0.85);
+  --border-color: rgba(255, 255, 255, 0.08);
+  --border-glow: rgba(34, 197, 94, 0.35);
 
   --primary: #22c55e;
   --primary-hover: #16a34a;
@@ -22,9 +22,9 @@
   --text-muted: #94a3b8;
   --text-dim: #64748b;
 
-  --glass-bg: rgba(15, 23, 42, 0.8);
+  --glass-bg: rgba(15, 23, 42, 0.85);
   --glass-border: 1px solid rgba(255, 255, 255, 0.1);
-  --glass-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+  --glass-shadow: 0 12px 32px 0 rgba(0, 0, 0, 0.45);
 
   --radius-sm: 8px;
   --radius-md: 14px;
@@ -38,18 +38,23 @@
   box-sizing: border-box;
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
 body {
   font-family: var(--font-body);
   background-color: var(--bg-dark);
   color: var(--text-main);
   background-image: 
-    radial-gradient(at 0% 0%, rgba(34, 197, 94, 0.12) 0px, transparent 50%),
-    radial-gradient(at 100% 100%, rgba(59, 130, 246, 0.12) 0px, transparent 50%),
-    radial-gradient(at 50% 50%, rgba(245, 158, 11, 0.05) 0px, transparent 50%);
+    radial-gradient(at 0% 0%, rgba(34, 197, 94, 0.15) 0px, transparent 50%),
+    radial-gradient(at 100% 100%, rgba(59, 130, 246, 0.15) 0px, transparent 50%),
+    radial-gradient(at 50% 50%, rgba(245, 158, 11, 0.06) 0px, transparent 50%);
   background-attachment: fixed;
   min-height: 100vh;
   line-height: 1.6;
   -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -65,8 +70,8 @@ a {
 /* Glassmorphism Card Utility */
 .glass-card {
   background: var(--bg-card);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
   border: var(--glass-border);
   box-shadow: var(--glass-shadow);
   border-radius: var(--radius-md);
@@ -75,7 +80,7 @@ a {
 
 .glass-card:hover {
   background: var(--bg-card-hover);
-  border-color: rgba(255, 255, 255, 0.2);
+  border-color: rgba(255, 255, 255, 0.18);
   transform: translateY(-2px);
 }
 
@@ -88,11 +93,12 @@ a {
   padding: 10px 20px;
   font-family: var(--font-body);
   font-weight: 600;
-  font-size: 0.95rem;
+  font-size: 0.92rem;
   border-radius: var(--radius-sm);
   border: none;
   cursor: pointer;
   transition: all 0.25s ease;
+  white-space: nowrap;
 }
 
 .btn-primary {
@@ -108,14 +114,14 @@ a {
 }
 
 .btn-secondary {
-  background: rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.08);
   color: var(--text-main);
-  border: 1px solid rgba(255, 255, 255, 0.15);
+  border: 1px solid rgba(255, 255, 255, 0.12);
 }
 
 .btn-secondary:hover {
-  background: rgba(255, 255, 255, 0.18);
-  border-color: rgba(255, 255, 255, 0.3);
+  background: rgba(255, 255, 255, 0.15);
+  border-color: rgba(255, 255, 255, 0.25);
 }
 
 .btn-outline {
@@ -146,7 +152,7 @@ a {
 }
 
 .form-group label {
-  font-size: 0.88rem;
+  font-size: 0.86rem;
   font-weight: 600;
   color: var(--text-muted);
 }
@@ -154,7 +160,7 @@ a {
 .form-control {
   width: 100%;
   padding: 12px 16px;
-  background: rgba(15, 23, 42, 0.6);
+  background: rgba(15, 23, 42, 0.65);
   border: 1px solid rgba(255, 255, 255, 0.12);
   border-radius: var(--radius-sm);
   color: var(--text-main);
@@ -176,7 +182,7 @@ a {
   gap: 6px;
   padding: 4px 12px;
   border-radius: 9999px;
-  font-size: 0.78rem;
+  font-size: 0.75rem;
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.04em;
@@ -233,6 +239,58 @@ a {
 .grid-cols-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
 .grid-cols-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
 
-@media (max-width: 900px) {
-  .grid-cols-2, .grid-cols-3, .grid-cols-4 { grid-template-columns: 1fr; }
+/* 📱 Responsive Mobile Breakpoints & Navigation Controls */
+.mobile-toggle-btn { display: none !important; }
+.desktop-nav { display: flex !important; }
+
+@media (max-width: 868px) {
+  .desktop-nav { display: none !important; }
+  .mobile-toggle-btn { display: block !important; }
+
+  .container {
+    padding: 0 16px;
+  }
+
+  .grid-cols-2, .grid-cols-3, .grid-cols-4 {
+    grid-template-columns: 1fr !important;
+    gap: 16px;
+  }
+
+  .glass-card {
+    padding: 20px 16px !important;
+    border-radius: var(--radius-md) !important;
+  }
+
+  h1 {
+    font-size: 2.1rem !important;
+    line-height: 1.25 !important;
+  }
+
+  h2 {
+    font-size: 1.6rem !important;
+  }
+
+  p {
+    font-size: 0.92rem !important;
+  }
+
+  .form-control {
+    font-size: 0.9rem;
+    padding: 10px 14px;
+  }
+}
+
+@media (max-width: 480px) {
+  .btn {
+    padding: 10px 14px;
+    font-size: 0.88rem;
+  }
+
+  h1 {
+    font-size: 1.85rem !important;
+  }
+
+  .glass-card {
+    padding: 16px 12px !important;
+  }
 }
