@@ -1,6 +1,6 @@
 import QRCode from 'qrcode';
 
-const localIp = '172.16.4.13';
+const localIp = '172.16.2.65';
 const baseUrl = `http://${localIp}:5173`;
 
 const targets = [
