@@ -1,15 +1,16 @@
 import axios from 'axios';
 
-// Dynamic API Base URL detection:
-// - Uses VITE_API_BASE_URL environment variable if configured
-// - If accessed on mobile via Vercel/Network, falls back to local machine network IP (172.16.2.65)
-// - If accessed on local machine, uses localhost:8080
+// Current active local machine IP: 172.16.26.155
 const getBaseURL = () => {
+  if (typeof window !== 'undefined') {
+    const customUrl = localStorage.getItem('anapoorna_api_url');
+    if (customUrl) return customUrl;
+  }
   if (import.meta.env.VITE_API_BASE_URL) {
     return import.meta.env.VITE_API_BASE_URL;
   }
   if (typeof window !== 'undefined' && window.location.hostname !== 'localhost' && window.location.hostname !== '127.0.0.1') {
-    return 'http://172.16.2.65:8080/api';
+    return 'http://172.16.26.155:8080/api';
   }
   return 'http://localhost:8080/api';
 };
@@ -21,9 +22,10 @@ const api = axios.create({
   },
 });
 
-// Automatically inject JWT Token into request headers
+// Automatically update baseURL & inject JWT Token into request headers
 api.interceptors.request.use(
   (config) => {
+    config.baseURL = getBaseURL();
     const token = localStorage.getItem('anapoorna_token');
     if (token) {
       config.headers.Authorization = `Bearer ${token}`;
