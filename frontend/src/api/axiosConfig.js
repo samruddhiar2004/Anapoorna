@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-// Current active local machine IP: 172.16.26.155
+// Current active presentation network IP: 172.16.106.145
 const getBaseURL = () => {
   if (typeof window !== 'undefined') {
     const customUrl = localStorage.getItem('anapoorna_api_url');
@@ -10,7 +10,7 @@ const getBaseURL = () => {
     return import.meta.env.VITE_API_BASE_URL;
   }
   if (typeof window !== 'undefined' && window.location.hostname !== 'localhost' && window.location.hostname !== '127.0.0.1') {
-    return 'http://172.16.26.155:8080/api';
+    return 'http://172.16.106.145:8080/api';
   }
   return 'http://localhost:8080/api';
 };
@@ -20,6 +20,7 @@ const api = axios.create({
   headers: {
     'Content-Type': 'application/json',
   },
+  timeout: 10000 // 10s request timeout
 });
 
 // Automatically update baseURL & inject JWT Token into request headers
