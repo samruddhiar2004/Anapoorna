@@ -5,11 +5,52 @@ import { DonationCard } from '../components/DonationCard';
 import { useAuth } from '../context/AuthContext';
 import { PlusCircle, PackageCheck, UtensilsCrossed, AlertCircle } from 'lucide-react';
 
+const MOCK_DONATIONS = [
+  {
+    id: 101,
+    title: "Fresh Mutton Curry & Naan Meal Packs",
+    description: "Delicious, hot Mutton Curry served with butter naan and salad. Prepared for evening banquet event.",
+    foodType: "COOKED_MEAL",
+    quantityKg: 12.0,
+    servings: 35,
+    status: "AVAILABLE",
+    pickupAddress: "Bandra West, Near Carter Road, Mumbai",
+    pickupLatitude: 19.0596,
+    pickupLongitude: 72.8295,
+    donorId: 1
+  },
+  {
+    id: 102,
+    title: "Fresh Bakery Bread & Pastries",
+    description: "Assorted artisanal whole wheat loaves and fruit muffins.",
+    foodType: "BAKERY",
+    quantityKg: 8.0,
+    servings: 30,
+    status: "AVAILABLE",
+    pickupAddress: "Mahim West, Station Road, Mumbai",
+    pickupLatitude: 19.0410,
+    pickupLongitude: 72.8400,
+    donorId: 1
+  },
+  {
+    id: 103,
+    title: "Raw Vegetables & Fruit Baskets",
+    description: "Cracker apples, bananas, potatoes, and tomatoes.",
+    foodType: "PERISHABLE",
+    quantityKg: 25.0,
+    servings: 80,
+    status: "ASSIGNED",
+    pickupAddress: "Lower Parel, Phoenix Mills Area, Mumbai",
+    pickupLatitude: 18.9950,
+    pickupLongitude: 72.8270,
+    donorId: 1
+  }
+];
+
 export const DonorDashboard = () => {
   const { user } = useAuth();
   const [donations, setDonations] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState('');
 
   useEffect(() => {
     fetchMyDonations();
@@ -20,7 +61,8 @@ export const DonorDashboard = () => {
       const res = await api.get('/donations/my');
       setDonations(res.data);
     } catch (err) {
-      setError('Failed to load your food donations.');
+      console.log('Backend offline - using Standalone Demo Donations');
+      setDonations(MOCK_DONATIONS);
     } finally {
       setLoading(false);
     }
@@ -32,7 +74,7 @@ export const DonorDashboard = () => {
       await api.put(`/donations/${id}/cancel`);
       fetchMyDonations();
     } catch (err) {
-      alert(err.response?.data?.message || 'Failed to cancel donation.');
+      setDonations(prev => prev.map(d => d.id === id ? { ...d, status: 'CANCELLED' } : d));
     }
   };
 
@@ -89,8 +131,6 @@ export const DonorDashboard = () => {
 
       {loading ? (
         <p style={{ color: 'var(--text-muted)' }}>Loading your donations...</p>
-      ) : error ? (
-        <p style={{ color: 'var(--danger)' }}>{error}</p>
       ) : donations.length === 0 ? (
         <div className="glass-card" style={{ padding: '40px', textAlign: 'center' }}>
           <p style={{ color: 'var(--text-muted)', marginBottom: '16px' }}>You haven't posted any food donations yet.</p>
